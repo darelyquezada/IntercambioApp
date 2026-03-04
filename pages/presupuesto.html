@@ -10,6 +10,8 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Icons de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="bg-light d-flex justify-content-center align-items-center min-vh-100 py-4">
@@ -58,57 +60,31 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2">
-                    <button
-                        class="btn btn-primary w-100 d-flex justify-content-between align-items-center py-2 rounded-3">
+                    <button id="btnRegresar" class="btn border-0 bg-secondary bg-opacity-10 text-primary rounded-3 px-3 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-chevron-left fw-bold"></i>
+                    </button>
+                    <button id="btnContinuar" class="btn btn-primary w-100 d-flex justify-content-between align-items-center py-2 rounded-3">
                         <span class="fw-semibold">Continuar</span>
                         <i class="bi bi-chevron-right "></i>
                     </button>
                 </div>
-
+                <div class="mt-3">
+                    <button id="btnRegresar" class="btn btn-outline-light text-secondary border-0 w-100 py-2 rounded-3 small d-flex align-items-center justify-content-center">
+                        <i class="bi bi-arrow-left-short fs-5 me-1"></i>
+                        <span>Regresar</span>
+                    </button>
+                </div>
             </div>
         </div>
-
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
-        <!-- Probicional -->
-        <script>
-            // Cuando el DomCarga
-            document.addEventListener("DOMContentLoaded", function () {
-                const botonoesPrecio = document.querySelectorAll(".btn-precio");
-                const seccionPresupuesto = document.getElementById("seccion-presupuesto");
-                const btnOtro = document.getElementById("btn-otro");
-                const btnLimpiar = document.getElementById("btn-limpiar");
-                const inputPresupuesto = document.getElementById("input-presupuesto");
 
-                botonoesPrecio.forEach(boton => {
-                    boton.addEventListener("click", function () {
-                        botonoesPrecio.forEach(b => {
-                            b.classList.remove("border", "border-primary", "bg-primary");
-                            b.classList.add("border-0", "bg-secondary");
-
-                        });
-                        this.classList.remove("border-0", "bg-secondary");
-                        this.classList.add("border", "border-primary", "bg-primary");
-
-                        if (this.id === "btn-otro") {
-                            seccionPresupuesto.classList.remove("d-none");
-                        } else {
-                            seccionPresupuesto.classList.add("d-none");
-                        }
-                    });
-                });
-
-                // Limpiar el campo de texto al hacer clic en el ícono de limpiar
-                btnLimpiar.addEventListener("click", function () {
-                    inputPresupuesto.value = "";
-                    inputPresupuesto.focus();
-                });
-            });
-
-        </script>
+        <!-- Custom JS-->
+        <script src="../js/presupuesto.js"></script>
+        <script src="../js/main.js"></script>
 </body>
 
 </html>
