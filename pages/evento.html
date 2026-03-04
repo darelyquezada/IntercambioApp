@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Icons de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bd-light d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <div class="col-11 col-sm-8 col-md-5 col-lg-4 col-xl-3">
+        <div class="text-center mb-1">
+            <!-- Aqui va la imagen del evento -->
+        </div>
+        <div class="card border-0 shadow-sm rounded-4 position-relative z-1">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold mb-3 fs-6">Nombre del Evento</h5>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button type="button"
+                        class="btn border-0 bg-secondary bg-opacity-10 text-primary fw-bold rounded-3 px-3 py-2 fs-6">San
+                        Valentín</button>
+                    <button type="button" id="btn-intecambio"
+                        class="btn border-0 bg-secondary bg-opacity-10 text-primary fw-bold rounded-3 px-3 py-2 fs-6">Intercambio
+                    <i class="bi bi-pencil-fill small"></i></button>
+                    <button type="button"
+                        class="btn border-0 bg-secondary bg-opacity-10 text-primary fw-bold rounded-3 px-3 py-2 fs-6">Navidad</button>
+                    <button type="button"
+                        class="btn border-0 bg-secondary bg-opacity-10 text-primary fw-bold rounded-3 px-3 py-2 fs-6">Dia
+                        del Niño</button>
+                    <button type="button"
+                        class="btn border-0 bg-secondary bg-opacity-10 text-primary fw-bold rounded-3 px-3 py-2 fs-6">Día
+                        de las Madres</button>
+                </div>
+                <div class="mb-4 mt-2">
+                    <a href="#" class="text-decoration-none text-primary fw-bold small">Mostrar más</a>
+                </div>
+                <div id="seccion-nombre" class="d-none mb-4">
+                    <label class="form-label fw-bold fs-6 text-dark mb-2">Nombre del evento:</label>
+                    <div class="position-relative">
+                        <input type="text" id="input-celebracion" class="form-control rounded-3 pe-5 py-2"
+                            placeholder="Intercambio 2026">
+                        <i class="bi bi-x text-secondary position-absolute top-50 end-0 translate-middle-y me-3 fs-5"
+                            role="button" id="btn-limpiar"></i>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button
+                        class="btn border-0 bg-secondary bg-opacity-10 text-primary rounded-3 px-3 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-chevron-left fw-bold"></i>
+                    </button>
+                    <button
+                        class="btn btn-primary w-100 d-flex justify-content-between align-items-center py-2 rounded-3">
+                        <span class="fw-semibold">Continuar</span>
+                        <i class="bi bi-chevron-right "></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <!-- probicional -->
+    <script>
+        // Cuando el DomCarga
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnIntercambio = document.getElementById("btn-intecambio");
+            const seccionNombre = document.getElementById("seccion-nombre");
+            const inputCelebracion = document.getElementById("input-celebracion");
+            const btnLimpiar = document.getElementById("btn-limpiar");
+
+            // Mostrar la sección de nombre al hacer clic en el botón "Intercambio"
+            btnIntercambio.addEventListener("click", function () {
+                seccionNombre.classList.toggle("d-none");
+
+                if (seccionNombre.classList.contains("d-none")) {
+                    btnIntercambio.classList.replace("bg-primary", "bg-secondary");
+                    btnIntercambio.classList.remove("border", "border-primary");
+                    btnIntercambio.classList.add("border-0");
+                } else {
+                    btnIntercambio.classList.replace("bg-secondary", "bg-primary");
+                    btnIntercambio.classList.remove("border-0");
+                    btnIntercambio.classList.add("border", "border-primary");
+                }
+
+            });
+
+            // Limpiar el campo de texto al hacer clic en el ícono de limpiar
+            btnLimpiar.addEventListener("click", function () {
+                inputCelebracion.value = "";
+                inputCelebracion.focus();
+            });
+        });
+    </script>
+</body>
+
+</html>
