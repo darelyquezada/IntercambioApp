@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAgregar = document.getElementById('btnAgregar');
     const listaParticipantes = document.getElementById('listaParticipantes');
     const btnContinuar = document.getElementById('btnContinuar');
-    const btnRegresar= document.getElementById('btnRegresar');
 
     let participantes = JSON.parse(localStorage.getItem('participantes'));
 
