@@ -2,21 +2,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const seccionPregunta = document.getElementById('seccionPregunta');
     const seccionLista = document.getElementById('seccionListaExclusiones');
     const contenedor = document.getElementById('contenedorParticipantes');
+    const btnContinuar = document.getElementById('btnContinuar');
+    const btnRegresar = document.getElementById('btnRegresar');
     
-    // Carga de participantes del localStorage 
-    const participantes = JSON.parse(localStorage.getItem('participantes'));
+    const btnSi = document.getElementById('btnSiExclusiones');
+    const btnNo = document.getElementById('btnNoExclusiones');
 
+    // Función para resaltar el botón seleccionado
+    function marcarBoton(seleccionado, deseleccionado) {
+        seleccionado.classList.add('active', 'btn-primary');
+        seleccionado.classList.remove('btn-outline-primary');
+        
+        deseleccionado.classList.remove('active', 'btn-primary');
+        deseleccionado.classList.add('btn-outline-primary');
+    }
+    
     // Mostrar sección de exclusiones 
-    document.getElementById('btnSiExclusiones').addEventListener('click', () => {
-        seccionPregunta.classList.add('hidden');
-        seccionLista.classList.remove('hidden');
+    btnSi.addEventListener('click', () => {
+        marcarBoton(btnSi, btnNo);
+        seccionLista.classList.remove('d-none');
         renderizarExclusiones();
+    });
+
+    // Eliminar sección de exclusiones
+    btnNo.addEventListener('click', () => {
+        marcarBoton(btnNo, btnSi);
+        
+        // Limpiar la interfaz
+        contenedor.innerHTML = '';
+        seccionLista.classList.add('d-none');
+        seccionPregunta.classList.remove('d-none');
+        
+        // Limpiar cualquier dato previo de exclusiones en el sistema
+        localStorage.removeItem('exclusiones');
     });
 
     // Función para crear la lista con casillas de verificación 
     function renderizarExclusiones() {
+        // Carga de participantes del localStorage
         const participantes = JSON.parse(localStorage.getItem('participantes')) || ["Gina", "Liz", "Lalo"];
-        const contenedor = document.getElementById('contenedorParticipantes');
         contenedor.innerHTML = '';
 
         participantes.forEach((persona, index) => {
@@ -54,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Guardar en LocalStorage y avanzar 
-    document.getElementById('btnContinuar').addEventListener('click', () => {
+    btnContinuar.addEventListener('click', () => {
         const checks = document.querySelectorAll('.check-excluir:checked');
         const exclusiones = {};
 
@@ -72,10 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Botón de regresar para alternar vistas
-    document.getElementById('btnRegresar').addEventListener('click', () => {
-        if (!seccionLista.classList.contains('hidden')) {
-            seccionLista.classList.add('hidden');
-            seccionPregunta.classList.remove('hidden');
+    btnRegresar.addEventListener('click', () => {
+        if (!seccionLista.classList.contains('d-none')) {
+            seccionLista.classList.add('d-none');
+            seccionPregunta.classList.remove('d-none');
+            // Quitamos el marcado del botón "Si"
+            btnSi.classList.remove('active', 'btn-primary');
+            btnSi.classList.add('btn-outline-primary');
         } else {
             window.history.back();
         }

@@ -6,3 +6,9 @@
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.2s ease-in-out;
 }
+
+/* Logo */
+#logo {
+    max-width: 150px; 
+    width: 100%;
+}
