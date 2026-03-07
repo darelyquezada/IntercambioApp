@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             presupuestoSeleccionado = this.innerText.replace('$', '').trim();
 
             if (this.id === "btn-otro") {
+                presupuestoSeleccionado = ""; // Borrar selección anterior
                 seccionPresupuesto.classList.remove("d-none");
                 inputPresupuesto.focus();
             } else {

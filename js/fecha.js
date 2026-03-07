@@ -146,7 +146,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (this.id === "btn-otro") {
         seccionCalendario.classList.remove("d-none");
-        fechaSeleccionada = textoFechaInput.innerText; // Guardar fecha atual
+        if (textoFechaInput.innerText === "Escoge la fecha") {
+        fechaSeleccionada = ""; 
+        } else {
+          fechaSeleccionada = textoFechaInput.innerText;
+        }
       } else {
         seccionCalendario.classList.add("d-none");
         fechaSeleccionada = this.innerText.trim(); // Actualizar variable global con el texto del botón

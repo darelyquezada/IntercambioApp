@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btnIntercambio.classList.remove("border", "border-primary");
             btnIntercambio.classList.add("border-0");
         } else { 
+            nombreSeleccionado = ""; // Olvidamos cualquier botón anterior
             btnIntercambio.classList.replace("bg-secondary", "bg-primary");
             btnIntercambio.classList.remove("border-0");
             btnIntercambio.classList.add("border", "border-primary");
