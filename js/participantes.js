@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listeners
     btnAgregar.addEventListener('click', agregar);
     btnContinuar.addEventListener('click', () => {
-        window.location.href = 'evento.html';
+        window.location.href = 'exclusiones.html';
     });
 
     // Renderizar al cargar la página
