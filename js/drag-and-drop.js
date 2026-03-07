@@ -119,7 +119,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     btnFinalizar.addEventListener("click", () => {
-        window.location.href = "../index.html";
+        localStorage.clear(); // Borrar localStorage
+        window.location.href = "../index.html"; // Redirigir a página de inicio
     });
 
     // Iniciar la primera vez
