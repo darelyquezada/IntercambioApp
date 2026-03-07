@@ -6,14 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const nombreEvento = localStorage.getItem('nombreEvento') || "Sin nombre";
     const fechaEvento = localStorage.getItem('fechaEvento') || "Sin fecha";
     const presupuesto = localStorage.getItem('presupuestoEvento') || "0";
+    const organizador = localStorage.getItem("organizador") || "No asignado";
 
     // Mostrar resumen de datos del evento
     document.getElementById('res-nombre-evento').innerText = nombreEvento;
     document.getElementById('res-fecha').innerText = fechaEvento;
     document.getElementById('res-presupuesto').innerText = `${presupuesto}`;
-    
-    // El organizador suele ser el primer participante agregado
-    document.getElementById('res-organizador').innerText = participantes[0] || "No asignado";
+    document.getElementById('res-organizador').innerText = organizador || "No asignado";
 
     // Mostrar relación de participantes y sus exclusiones
     const contenedorLista = document.getElementById('lista-resumen');
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resultado) {
             alert("¡Sorteo realizado con éxito!");
             // Redirigir a la pantalla donde se muestran los resultados
-            window.location.href = '../pages/sorteo-resultados.html';
+            window.location.href = 'sorteo-resultados.html';
         }
     });
 });

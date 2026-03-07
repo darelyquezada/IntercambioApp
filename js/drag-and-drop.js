@@ -1,123 +1,127 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let nombres = JSON.parse(localStorage.getItem('participantes')) || [];
+    // 1. Cargar los resultados ya sorteados
+    let resultadosSorteo = JSON.parse(localStorage.getItem('resultadoSorteo')) || [];
     
-    // Mezclar arreglo (Fisher-Yates)
-    for (let i = nombres.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [nombres[i], nombres[j]] = [nombres[j], nombres[i]];
-    }
-
-    // 2. REFERENCIAS AL DOM
+    // 2. Referencias al DOM
     const cajaRegalo = document.getElementById("caja-regalo");
     const zonaSoltar = document.getElementById("zona-soltar");
     const contadorNombres = document.getElementById("contador-nombres");
     const casillaVacia = document.getElementById("casilla-vacia");
     const casillaNombre = document.getElementById("casilla-nombre");
     const nombreMostrado = document.getElementById("nombre-mostrado");
+    const quienRegalaTexto = document.getElementById("quien-regala");
     const seccionFinalizar = document.getElementById("seccion-finalizar");
     const btnFinalizar = document.getElementById("btnFinalizar");
     
     let sorteoEnCurso = false;
 
-    contadorNombres.innerText = nombres.length;
+    // Función para actualizar Turno y Contador
+    function actualizarInterfaz() {
+        contadorNombres.innerText = resultadosSorteo.length;
+        if (resultadosSorteo.length > 0) {
+            quienRegalaTexto.innerText = resultadosSorteo[0].quienRegala;
+        } else {
+            document.getElementById("seccion-turno").classList.add("d-none");
+        }
+    }
 
-    // --------------------------------------------------------
-    // FUNCIÓN CENTRAL: REVELAR NOMBRE
-    // --------------------------------------------------------
+    // Función para revelar el nombre 
     function revelarNombre() {
-    if (nombres.length === 0 || sorteoEnCurso) return;
-    sorteoEnCurso = true;
+        if (resultadosSorteo.length === 0 || sorteoEnCurso) return;
+        sorteoEnCurso = true;
 
-    // Ocultar texto anterior
-    casillaNombre.classList.add("d-none");
-    casillaNombre.classList.remove("fade", "show");
-    
-    // Sacar nombre
-    const nombreExtraido = nombres.pop();
-    nombreMostrado.innerText = nombreExtraido;
-    contadorNombres.innerText = nombres.length;
+        // Ocultar nombre anterior para la animación
+        casillaNombre.classList.add("d-none");
+        casillaNombre.classList.remove("fade", "show");
 
-    // Mostrar nuevo nombre
-    casillaVacia.classList.add("d-none");
-    casillaNombre.classList.remove("d-none");
-    
-    setTimeout(() => {
-        casillaNombre.classList.add("fade", "show");
-        sorteoEnCurso = false;
+        // Sacar la pareja actual
+        const parejaActual = resultadosSorteo.shift(); 
+        const nombreReceptor = parejaActual.aQuienLeRegala;
 
-        // Si se acabaron los nombres
-        if (nombres.length === 0) {
-        cajaRegalo.setAttribute("draggable", "false"); // Desactivar drag
+        nombreMostrado.innerText = nombreReceptor;
+        
+        // Guardar el estado actual en LocalStorage por si refrescan la página
+        localStorage.setItem('resultadoSorteo', JSON.stringify(resultadosSorteo));
+
+        // Cambiar vistas
+        casillaVacia.classList.add("d-none");
+        casillaNombre.classList.remove("d-none");
+        
+        setTimeout(() => {
+            casillaNombre.classList.add("fade", "show");
+            setTimeout(() => {
+                if (resultadosSorteo.length > 0) {
+                    // Animación de salida del nombre
+                    casillaNombre.classList.remove("show");
+                    
+                    setTimeout(() => {
+                        casillaNombre.classList.add("d-none");
+                        casillaVacia.classList.remove("d-none"); // Volver a mostrar "Suelta aquí"
+                        actualizarInterfaz(); // Mostrar el siguiente dador
+                        sorteoEnCurso = false; // Permitir el siguiente arrastre
+                    }, 400); // Tiempo de la transición de salida
+                } else {
+                    // Si ya no quedan más, solo finalizamos el sorteo
+                    sorteoEnCurso = false;
+                    actualizarInterfaz();
+                    mostrarFinal();
+                }
+            }, 3000); // Después de 3 segs el nombre desaparece
+            
+        }, 100);
+    }
+
+    // Función para mostrar sección Finalizar
+    function mostrarFinal() {
+        cajaRegalo.setAttribute("draggable", "false");
         cajaRegalo.classList.add("opacity-50");
         seccionFinalizar.classList.remove("d-none");
         setTimeout(() => seccionFinalizar.classList.add("show"), 50);
-        }
-    }, 50);
     }
 
-    // --------------------------------------------------------
-    // EVENTOS DE DRAG AND DROP (Para PC)
-    // --------------------------------------------------------
-
-    // Al empezar a arrastrar el regalo
+    // Events Listeners para Drag & Drop
     cajaRegalo.addEventListener("dragstart", (e) => {
-    if (nombres.length === 0) return e.preventDefault();
-    
-    // Es necesario setear data para que Firefox permita el arrastre
-    e.dataTransfer.setData("text/plain", "regalo");
-    
-    // Hacemos que la caja original se vea medio transparente mientras se arrastra
-    setTimeout(() => cajaRegalo.classList.add("opacity-50"), 0);
+        if (resultadosSorteo.length === 0) return e.preventDefault();
+        e.dataTransfer.setData("text/plain", "regalo");
+        setTimeout(() => cajaRegalo.classList.add("opacity-50"), 0);
     });
 
-    // Al soltar (o cancelar) el arrastre en cualquier lado
     cajaRegalo.addEventListener("dragend", () => {
-    cajaRegalo.classList.remove("opacity-50");
+        cajaRegalo.classList.remove("opacity-50");
     });
 
-    // Cuando el regalo pasa por encima de la zona de soltar
     zonaSoltar.addEventListener("dragover", (e) => {
-    e.preventDefault(); // OBLIGATORIO para permitir que se pueda soltar
-    // Cambiamos el color de fondo para dar feedback visual (más azul)
-    zonaSoltar.classList.replace("bg-opacity-10", "bg-opacity-25");
-    zonaSoltar.classList.add("border-4"); // Hacemos el borde más grueso
+        e.preventDefault();
+        zonaSoltar.classList.replace("bg-opacity-10", "bg-opacity-25");
+        zonaSoltar.classList.add("border-4");
     });
 
-    // Cuando el regalo sale de la zona de soltar sin soltarlo
     zonaSoltar.addEventListener("dragleave", () => {
-    // Regresamos a los estilos normales
-    zonaSoltar.classList.replace("bg-opacity-25", "bg-opacity-10");
-    zonaSoltar.classList.remove("border-4");
+        zonaSoltar.classList.replace("bg-opacity-25", "bg-opacity-10");
+        zonaSoltar.classList.remove("border-4");
     });
 
-    // Cuando finalmente SUELTAN el regalo dentro de la casilla
     zonaSoltar.addEventListener("drop", (e) => {
-    e.preventDefault();
-    
-    // Restaurar estilos de la casilla
-    zonaSoltar.classList.replace("bg-opacity-25", "bg-opacity-10");
-    zonaSoltar.classList.remove("border-4");
-    
-    // Ejecutar el sorteo
-    revelarNombre();
+        e.preventDefault();
+        zonaSoltar.classList.replace("bg-opacity-25", "bg-opacity-10");
+        zonaSoltar.classList.remove("border-4");
+        revelarNombre();
     });
 
-    // --------------------------------------------------------
-    // EVENTO DE CLIC (Fallback para Móviles)
-    // --------------------------------------------------------
     cajaRegalo.addEventListener("click", () => {
-    if (nombres.length === 0 || sorteoEnCurso) return;
-    
-    // Animación rápida de agitar antes de revelar (solo al hacer clic)
-    const animacion = cajaRegalo.animate([
-        { transform: 'rotate(10deg) scale(1.05)' },
-        { transform: 'rotate(-10deg) scale(1.05)' },
-        { transform: 'rotate(0deg) scale(1)' }
-    ], { duration: 300 });
+        if (resultadosSorteo.length === 0 || sorteoEnCurso) return;
+        const animacion = cajaRegalo.animate([
+            { transform: 'rotate(10deg) scale(1.05)' },
+            { transform: 'rotate(-10deg) scale(1.05)' },
+            { transform: 'rotate(0deg) scale(1)' }
+        ], { duration: 300 });
+        animacion.onfinish = revelarNombre;
+    });
 
-    animacion.onfinish = revelarNombre;
-    });
     btnFinalizar.addEventListener("click", () => {
-    window.location.href = "#";
+        window.location.href = "../index.html";
     });
+
+    // Iniciar la primera vez
+    actualizarInterfaz();
 });
