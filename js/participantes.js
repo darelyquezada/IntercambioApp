@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAgregar = document.getElementById('btnAgregar');
     const listaParticipantes = document.getElementById('listaParticipantes');
     const btnContinuar = document.getElementById('btnContinuar');
-    const btnRegresar= document.getElementById('btnRegresar');
 
-    let participantes = JSON.parse(localStorage.getItem('participantes'));
+    let participantes = JSON.parse(localStorage.getItem('participantes')) || [];
 
     // Función para renderizar listaParticipantes
     const renderizar = () => {
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listeners
     btnAgregar.addEventListener('click', agregar);
     btnContinuar.addEventListener('click', () => {
-        window.location.href = 'evento.html';
+        window.location.href = '../pages/evento.html';
     });
 
     // Renderizar al cargar la página
