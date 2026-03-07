@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const seccionPresupuesto = document.getElementById("seccion-presupuesto");
     const inputPresupuesto = document.getElementById("input-presupuesto");
 
+    let presupuestoSeleccionado = ""; // Variable para capturar el valor de los botones
+
     // Manejar la selección de presupuesto
     botonesPrecio.forEach(boton => {
         boton.addEventListener("click", function () {
@@ -15,10 +17,15 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.remove("border-0", "bg-secondary");
             this.classList.add("border", "border-primary", "bg-primary");
 
+            // Guardar el valor del botón
+            presupuestoSeleccionado = this.innerText.trim();
+
             if (this.id === "btn-otro") {
                 seccionPresupuesto.classList.remove("d-none");
+                inputPresupuesto.focus();
             } else {
                 seccionPresupuesto.classList.add("d-none");
+                inputPresupuesto.value = ""; // Limpiar el manual si elige predefinido
             }
         });
     });
@@ -30,6 +37,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     btnContinuar.addEventListener('click', () => {
-        window.location.href = 'fecha-hora.html';
+        let presupuestoFinal = "";
+        // Si la sección "Otro" es visible y tiene datos, usamos el input
+        if (!seccionPresupuesto.classList.contains("d-none") && inputPresupuesto.value.trim() !== "") {
+            presupuestoFinal = inputPresupuesto.value.trim();
+        } else { // Si no, usamos el botón seleccionado.
+            presupuestoFinal = presupuestoSeleccionado;
+        }
+
+        // Validación
+        if (!presupuestoFinal) {
+            alert("Por favor, selecciona un presupuesto o ingresa uno manualmente.");
+            return;
+        }
+
+        // Guardar en localStorage (como string simple para que coincida con tu resumen)
+        localStorage.setItem('presupuestoEvento', presupuestoFinal);
+        console.log("Presupuesto guardado:", presupuestoFinal);
+
+        window.location.href = 'fecha.html';
     })
 });

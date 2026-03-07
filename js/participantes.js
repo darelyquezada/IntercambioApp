@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaParticipantes = document.getElementById('listaParticipantes');
     const btnContinuar = document.getElementById('btnContinuar');
 
-    let participantes = JSON.parse(localStorage.getItem('participantes'));
+    let participantes = JSON.parse(localStorage.getItem('participantes')) || [];
 
     // Función para renderizar listaParticipantes
     const renderizar = () => {

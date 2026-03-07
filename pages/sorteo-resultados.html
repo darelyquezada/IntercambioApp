@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorteo Drag and Drop</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center min-vh-100 py-4">
+
+  <div class="col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4 col-xxl-3 d-flex flex-column align-items-center">
+    
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-dark">¡Hora del Sorteo!</h2>
+      <p class="text-secondary small">Arrastra el regalo a la casilla (o tócalo)</p>
+    </div>
+
+    <div id="zona-soltar" class="card w-100 border-2 border-primary bg-primary bg-opacity-10 shadow-sm rounded-4 mb-5 transition-all" style="min-height: 130px;">
+      <div class="card-body d-flex justify-content-center align-items-center flex-column text-center h-100">
+        
+        <div id="casilla-vacia" class="text-primary opacity-50 d-flex flex-column align-items-center pointer-events-none">
+          <i class="bi bi-box-arrow-in-down display-4 mb-2"></i>
+          <span class="fw-semibold">Suelta el regalo aquí</span>
+        </div>
+        
+        <div id="casilla-nombre" class="d-none w-100 pointer-events-none">
+          <span class="text-secondary small fw-bold text-uppercase tracking-wide">El nombre es...</span>
+          <h1 id="nombre-mostrado" class="display-5 fw-bold text-primary mt-2 mb-0"></h1>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="caja-regalo" draggable="true" class="text-center position-relative mb-4" role="button" title="Arrastra o haz clic para sacar un nombre">
+      <i class="bi bi-gift-fill text-danger" style="font-size: 8rem; filter: drop-shadow(0 10px 8px rgba(0,0,0,0.15));"></i>
+    </div>
+
+    <div class="mt-2 text-center">
+      <span class="badge bg-secondary bg-opacity-25 text-dark rounded-pill px-3 py-2">
+        Quedan <span id="contador-nombres" class="fw-bold text-primary">0</span> participantes
+      </span>
+    </div>
+
+    <div id="seccion-finalizar" class="w-100 mt-5 d-none fade">
+      <button id="btnFinalizar" class="btn btn-success w-100 d-flex justify-content-center align-items-center py-3 rounded-3 shadow-sm">
+        <span class="fw-bold fs-5">¡Sorteo Finalizado!</span>
+        <i class="bi bi-check-circle-fill ms-2 fs-5"></i>
+      </button>
+    </div>
+
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Scripts -->
+   <script src="../js/drag-and-drop.js"></script>
+</body>
+</html>

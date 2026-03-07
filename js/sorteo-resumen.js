@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const btnSorteo = document.getElementById('btnRealizarSorteo');
     // Leer datos del localStorage
     const participantes = JSON.parse(localStorage.getItem('participantes')) || [];
     const exclusiones = JSON.parse(localStorage.getItem('exclusiones')) || {};
-    const datosEvento = JSON.parse(localStorage.getItem('datosEvento')) || { nombre: "Sin nombre", fecha: "Sin fecha" };
+    const nombreEvento = localStorage.getItem('nombreEvento') || "Sin nombre";
+    const fechaEvento = localStorage.getItem('fechaEvento') || "Sin fecha";
     const presupuesto = localStorage.getItem('presupuestoEvento') || "0";
 
     // Mostrar resumen de datos del evento
-    document.getElementById('res-nombre-evento').innerText = datosEvento.nombre;
-    document.getElementById('res-fecha').innerText = datosEvento.fecha;
-    document.getElementById('res-presupuesto').innerText = `$${presupuesto}`;
+    document.getElementById('res-nombre-evento').innerText = nombreEvento;
+    document.getElementById('res-fecha').innerText = fechaEvento;
+    document.getElementById('res-presupuesto').innerText = `${presupuesto}`;
     
     // El organizador suele ser el primer participante agregado
     document.getElementById('res-organizador').innerText = participantes[0] || "No asignado";
@@ -35,16 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         contenedorLista.appendChild(item);
     });
-    
+
     // Cuando se haga click en "Realizar Sorteo Ahora", se llama a la función del sorteo y luego se redirige a la pantalla para ver quien te tocó
-    document.getElementById('btnRealizarSorteo').addEventListener('click', () => {
+    btnSorteo.addEventListener('click', () => {
         // Llamamos a la función del archivo sorteo.js
         const resultado = realizarSorteo(); 
         
         if (resultado) {
             alert("¡Sorteo realizado con éxito!");
             // Redirigir a la pantalla donde se muestran los resultados
-            window.location.href = 'resultados.html';
+            window.location.href = '../pages/sorteo-resultados.html';
         }
     });
 });
