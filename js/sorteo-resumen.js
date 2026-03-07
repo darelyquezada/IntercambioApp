@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mostrar resumen de datos del evento
     document.getElementById('res-nombre-evento').innerText = nombreEvento;
     document.getElementById('res-fecha').innerText = fechaEvento;
-    document.getElementById('res-presupuesto').innerText = `${presupuesto}`;
+    document.getElementById('res-presupuesto').innerText = `$${presupuesto}`;
     document.getElementById('res-organizador').innerText = organizador || "No asignado";
 
     // Mostrar relación de participantes y sus exclusiones

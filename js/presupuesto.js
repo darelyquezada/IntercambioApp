@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.remove("border-0", "bg-secondary");
             this.classList.add("border", "border-primary", "bg-primary");
 
-            // Guardar el valor del botón
-            presupuestoSeleccionado = this.innerText.trim();
+            // Guardar el valor del botón sin el '$'
+            presupuestoSeleccionado = this.innerText.replace('$', '').trim();
 
             if (this.id === "btn-otro") {
                 seccionPresupuesto.classList.remove("d-none");
