@@ -47,7 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validación
         if (!presupuestoFinal) {
-            alert("Por favor, selecciona un presupuesto o ingresa uno manualmente.");
+            Swal.fire({
+                title: '¡Atención!',
+                text: 'Por favor, selecciona un presupuesto o ingresa uno manualmente.',
+                icon: 'warning',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#0d6efd', // Bootstrap color azul
+                customClass: {
+                    popup: 'rounded-4' // Bordes redondeados
+                }
+            });
             return;
         }
 

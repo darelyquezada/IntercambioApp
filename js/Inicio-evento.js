@@ -13,7 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const nombre = inputNombre.value.trim();
         
         if (nombre === "") {
-            alert("Por favor, introduce tu nombre.");
+            Swal.fire({
+                title: '¿Cómo te llamas?',
+                text: 'Por favor, introduce tu nombre.',
+                icon: 'question',
+                confirmButtonText: 'Escribir nombre',
+                confirmButtonColor: '#0d6efd',
+                customClass: {
+                    popup: 'rounded-4'
+                }
+            });
             return;
         }
 

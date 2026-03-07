@@ -4,7 +4,16 @@ function realizarSorteo() {
     const exclusiones = JSON.parse(localStorage.getItem('exclusiones')) || {};
 
     if (participantes.length < 2) {
-        alert("Se necesitan al menos 2 participantes para el sorteo.");
+        Swal.fire({
+            title: '¡Faltan participantes!',
+            text: 'Se necesitan al menos 2 participantes para poder realizar el sorteo.',
+            icon: 'error',
+            confirmButtonText: 'Agregar más',
+            confirmButtonColor: '#0d6efd',
+            customClass: {
+                popup: 'rounded-4 shadow'
+            }
+        });
         return null;
     }
 
@@ -37,7 +46,6 @@ function realizarSorteo() {
         return resultado;
     } else {
         console.error("No se encontró una combinación válida. Revisa las exclusiones.");
-        alert("Las exclusiones son muy estrictas y no permiten un sorteo válido. ¡Intenta reducirlas!");
         return null;
     }
 }

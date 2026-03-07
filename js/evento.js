@@ -64,7 +64,16 @@ document.addEventListener("DOMContentLoaded", function () {
         let nombreEvento = inputCelebracion.value.trim() || nombreSeleccionado;
 
         if (!nombreEvento) {
-            alert("Por favor, selecciona un tipo de evento o escribe un nombre.");
+            Swal.fire({
+                title: '¡Faltan datos!',
+                text: 'Por favor, selecciona un tipo de evento o escribe un nombre personalizado.',
+                icon: 'info',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#0d6efd', // Azul de Bootstrap
+                customClass: {
+                    popup: 'rounded-4 shadow-lg' // Bootstrap
+                }
+            });
             return;
         }
 

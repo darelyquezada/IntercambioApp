@@ -167,7 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
   btnContinuar.addEventListener("click", function () {
     // Si no se seleccionó nada, fecha por defecto o alert
     if (fechaSeleccionada === "" || fechaSeleccionada === "Selecciona una fecha") {
-      alert("Por favor, selecciona una fecha para continuar.");
+      Swal.fire({
+          title: 'Fecha necesaria',
+          text: 'Por favor, selecciona una fecha para continuar con la organización de tu sorteo.',
+          icon: 'calendar', 
+          confirmButtonText: 'Seleccionar fecha',
+          confirmButtonColor: '#0d6efd',
+          customClass: {
+              popup: 'rounded-4'
+          }
+      });
       return;
     }
 
