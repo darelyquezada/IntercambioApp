@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Redirigir a la pantalla donde arrastran el regalo
-                window.location.href = '../pages/sorteo-resultados.html'; 
+                window.location.href = 'sorteo-resultados.html'; 
             }
         });
     }

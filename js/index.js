@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const botonComenzar = document.getElementById("comenzar");
     botonComenzar.addEventListener("click", function () {
-        window.location.href = "../pages/Inicio-evento.html";
+        window.location.href = "pages/Inicio-evento.html";
     });
 
     // Usamos Intersection Observer para detectar cuando la sección entra en pantalla

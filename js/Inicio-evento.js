@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("incluirOrganizador", checkIncluir.checked);
 
         // Redirigir
-        window.location.href = "../pages/participantes.html";
+        window.location.href = "participantes.html";
 
     });
 });
