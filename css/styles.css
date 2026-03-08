@@ -198,11 +198,8 @@ body {
 .card {
     border: none !important;
     background-color: var(--color-background-alt) !important;
-    box-shadow: var(--shadow-md) !important;
     border-radius: 20px;
     transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
 }
 
 .card:hover {
@@ -212,7 +209,6 @@ body {
 
 .card.card-elevated {
     box-shadow: var(--shadow-lg) !important;
-    z-index: 2;
 }
 
 .card.card-elevated:hover {
@@ -658,4 +654,22 @@ body > .container-fluid {
     .card {
         border-radius: 16px;
     }
+}
+
+/* ========================================
+   ESTILOS ESPECÍFICOS PARA CALENDARIO
+   ======================================== */
+
+#calendario-popover {
+    z-index: 1000 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#calendario-popover.d-none {
+    display: none !important;
+}
+
+#calendario-popover.d-block {
+    display: block !important;
 }
