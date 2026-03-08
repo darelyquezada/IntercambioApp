@@ -626,6 +626,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ========================================
+   SECCIÓN DE PRESENTACIÓN (INDEX)
+   ======================================== */
+
+#presentacion {
+    background-color: var(--color-background-alt) !important;
+    background-image: none !important;
+}
+
+#presentacion .text-dark {
+    color: var(--color-text-primary) !important;
+}
+
+#presentacion .text-secondary {
+    color: var(--color-text-secondary) !important;
+}
+
+/* ========================================
    ESTILOS RESPONSIVOS
    ======================================== */
 
